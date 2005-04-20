@@ -1,4 +1,4 @@
-# $Id: 4_workout.t,v 1.1.1.1 2002/06/14 20:39:48 grantm Exp $
+# $Id: 4_workout.t,v 1.2 2005/04/20 02:33:14 grantm Exp $
 
 use strict;
 use Test::More;
@@ -97,6 +97,7 @@ $xmlin = q(<list>
   <snackfood>popcorn</snackfood>
   <person>3<firstname>Wayne</firstname></person>
   <person>4<firstname>Xavier</firstname></person>
+  <trailer>0</trailer>
 </list>);
 
 $xmlout = '';
@@ -117,6 +118,7 @@ is($xmlout, q(<list>
   <snackfood>popcorn</snackfood>
   <person>3<firstname>Wayne</firstname></person>
   <person>4<firstname>Xavier</firstname></person>
+  <trailer>0</trailer>
 </list>), 'Sorted two independent lists (element between)');
 
 
