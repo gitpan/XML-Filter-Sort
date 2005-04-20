@@ -1,4 +1,4 @@
-# $Id: Buffer.pm,v 1.1.1.1 2002/06/14 20:40:11 grantm Exp $
+# $Id: Buffer.pm,v 1.2 2005/04/20 20:04:34 grantm Exp $
 
 package XML::Filter::Sort::Buffer;
 
@@ -187,7 +187,8 @@ sub text_content {
 
   my $text = '';
 
-  while(my $node = shift) {
+  while(@_) {
+    my $node = shift;
     if(ref($node)) {
       if($node->[NODE_TYPE] eq 'e') {
 	if(@{$node->[NODE_CONTENT]}) {
@@ -238,7 +239,8 @@ sub to_sax {
 
   @_ = @{$self->{tree}} unless(@_);
 
-  while(my $node = shift) {
+  while(@_) {
+    my $node = shift;
     if(ref($node)) {
       if($node->[NODE_TYPE] eq 'e') {
 	$filter->start_element($node->[NODE_DATA]);

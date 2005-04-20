@@ -1,4 +1,4 @@
-# $Id: 1_buffer.t,v 1.1.1.1 2002/06/14 20:39:55 grantm Exp $
+# $Id: 1_buffer.t,v 1.2 2005/04/20 20:03:52 grantm Exp $
 
 use strict;
 use Test::More;
@@ -143,6 +143,7 @@ my $xmlin = q(<person>
   <lastname>Boozle</lastname>
   <age unit='year'>35</age>
   <empty />
+  <zero>0</zero>
 </person>);
 
 my(@keyvals);

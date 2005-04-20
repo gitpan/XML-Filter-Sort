@@ -1,4 +1,4 @@
-# $Id: 4_workout.t,v 1.2 2005/04/20 02:33:14 grantm Exp $
+# $Id: 4_workout.t,v 1.3 2005/04/20 20:03:53 grantm Exp $
 
 use strict;
 use Test::More;
@@ -19,7 +19,7 @@ BEGIN { # Seems to be required by older Perls
 
 }
 
-plan tests => 25;
+plan tests => 26;
 
 use XML::Filter::Sort;
 use XML::SAX::Machines qw( :all );
@@ -946,6 +946,41 @@ is($xmlout, q(<options>
   <color prime='4'>RED</color>
   <color prime='2'>red</color>
 </options>), 'Synthetic key generation via KeyFilterSub');
+
+
+##############################################################################
+# Test that text content of '0' doesn't give us grief (any more).
+#
+
+$xmlin = q(<list>
+  <prefix>0</prefix>
+  <item>9</item>
+  <item>5</item>
+  <item>0</item>
+  <item>7</item>
+  <suffix>0</suffix>
+</list>);
+
+$xmlout = '';
+
+@opts = (Record => 'item', Keys => '., num, asc');
+push @opts, @main::TempOpts;
+
+$sorter = Pipeline(
+  XML::Filter::Sort->new(@opts) => \$xmlout
+);
+$sorter->parse_string($xmlin);
+fix_xml($xmlout);
+
+is($xmlout, q(<list>
+  <prefix>0</prefix>
+  <item>0</item>
+  <item>5</item>
+  <item>7</item>
+  <item>9</item>
+  <suffix>0</suffix>
+</list>), 'No problem with text content of "0" even in sort key');
+
 
 
 ##############################################################################
